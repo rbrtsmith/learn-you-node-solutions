@@ -1,17 +1,15 @@
-
-var directory = process.argv[2],
-    extension = '.' + process.argv[3],
+var dir = process.argv[2],
+    ext = '.' + process.argv[3],
     fs = require('fs'),
     path = require('path');
-
-fs.readdir(directory, function(err, files) {
+fs.readdir(dir, function(err, list) {
     if (err) {
-        throw err;
+        console.error(err);
+    } else {
+        list.forEach(function(val) {
+            if (path.extname(val) === ext) {
+                console.log(val);
+            }
+        });
     }
-    files.forEach(function(filename) {
-        var currExtension = path.extname(filename);
-        if (currExtension === extension) {
-            console.log(filename);
-        }
-    });
-});    
+});
