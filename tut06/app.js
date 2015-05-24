@@ -1,12 +1,13 @@
+var dir = process.argv[2],
+    ext = process.argv[3],
+    listFiles = require('./listFiles');
 
-var filter = require('./filter'),
-    directory = process.argv[2],
-    extension = process.argv[3];
-    
-filter(directory, extension, function(err, data) {
-    if (!err) {
-        data.forEach(function(value) {
-            console.log(value);
-        });      
+listFiles(dir,ext, function(err, list) {
+    if (err) {
+        console.log(err);
+    } else {
+        list.forEach(function(val) {
+            console.log(val);
+        });
     }
 });
