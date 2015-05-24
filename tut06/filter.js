@@ -1,18 +1,18 @@
 var fs = require('fs'),
     path = require('path');
-module.exports = function(directory, extension, callback) {
-    var list = [];
-    extension = '.' + extension;
-    fs.readdir(directory, function(err, files) {
+var listFiles = function(dir, ext, cb) {
+    fs.readdir(dir, function(err, list) {
+        var result = [];
         if (err) {
-            return(callback(err));
+            return cb(err);
+        } else {
+            return(cb(null,list.filter(function(val) {
+                if (path.extname(val) === '.' + ext) {
+                    return val;
+                }
+            })));
         }
-        files.forEach(function(filename) {
-            var currExtension = path.extname(filename);
-            if (currExtension === extension) {
-                list.push(filename);
-            }
-        });
-        callback(null, list);
     });
 };
+
+module.exports = listFiles;
