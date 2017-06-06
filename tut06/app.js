@@ -1,13 +1,13 @@
 var dir = process.argv[2],
     ext = process.argv[3],
-    listFiles = require('./listFiles');
+    filterFn = require('./solution_filter.js');
 
-listFiles(dir,ext, function(err, list) {
+filterFn(dir,ext, function(err, list) {
     if (err) {
-        console.log(err);
-    } else {
-        list.forEach(function(val) {
-            console.log(val);
-        });
-    }
+        return console.error('There was an error:', err);
+    } 
+    list.forEach(function(val) {
+        console.log(val);
+    });
+    
 });
